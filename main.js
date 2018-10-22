@@ -7,43 +7,52 @@ async function showAlert() {
     "In order for me to rename an element, you need to select one.");
 }
 
-async function showResult(el, index) {
+async function showResult(el) {
     /* we'll display a dialog here */    
     // console.log(el); 
-    switch(el) {
-        case "Text":
-            console.log("this is a Text node.");
-            break;
-        case "Artboard":
-            console.log("this is an Artboard node.");
-            break;
-        default:   
-            console.log("sorry nothing selected.")
-    }    
+    // switch(el) {
+    //     case "Text":
+    //         console.log("this is a Text node.");
+    //         break;
+    //     case "Artboard":
+    //         console.log("this is an Artboard node.");
+    //         break;
+    //     default:   
+    //         console.log("sorry nothing selected.")
+    // }        
     await alert("Yaay! You selected something",
-    `The selected element is ${index}`);
+    `The selected element is ${el}`);
+    // console.log("alert:", t instanceof Promise);
+    
 }
 
-function myCommand(selection) {
-    let node = selection.items;
-    if (!node) {        
+async function myCommand(selection) {
+    const {items} = selection;
+    // console.log(items);
+    if (!items) {        
         showAlert();
         return false;        
     } else {                   
-        // Print out types of all child nodes (if any)
-        node.forEach(function (childNode, i) {
-            // console.log("Child " + i + " is a " + childNode.constructor.name);                       
-            showResult(childNode.constructor.name, i);
-            // childNode.children.forEach(function (items, i){                                
-            //     var textObj = items;
-            //     console.log(textObj);                 
-            //     var results = [];
-            //     results.push(textObj);                                                
-            //     console.log(results.join(''));
-            //     showResult(results);
-            // });            
-
-        });
+        // Print out types of all child itemss (if any)
+        // items.forEach(function (item, i) {
+        //     console.log("item:", item);
+        //     // console.log("Child " + i + " is a " + childNode.constructor.name);                       
+        //     // showResult(childNode.constructor.name, i);
+        //     // item.children.forEach(function (child, i){                                                
+        //     //     console.log("child:", child);                                                                               
+        //     //     showResult(child.name);
+        //     // }); 
+            
+        // });
+        for (let item of items) {
+            console.log("item:", item);    
+            const itemChildren = item.children.map(x => x);        
+            for (let child of itemChildren) {                
+                console.log("child:", child);
+                await showResult(child.name);
+            }
+        }           
+        
     }            
 }
 
