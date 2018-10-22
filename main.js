@@ -4,7 +4,7 @@ const { alert, error } = require("./lib/dialogs.js");
 async function showAlert() {
     /* we'll display a dialog here */
     await alert("Nothing is selected",
-    "In order for me to rename an element, you need to select one.");
+    "In order for me to rename an element, you need to select one.");    
 }
 
 async function showResult(el) {
@@ -19,37 +19,34 @@ async function showResult(el) {
     //         break;
     //     default:   
     //         console.log("sorry nothing selected.")
-    // }        
-    await alert("Yaay! You selected something",
-    `The selected element is ${el}`);
+    // }
+    console.log(el);
+    el.forEach(function(name){
+        console.log("showResults:", name);
+    })        
+    // await alert("Yaay! You selected something",
+    // `The selected element is ${el}
+    // `);
     // console.log("alert:", t instanceof Promise);
     
 }
 
 async function myCommand(selection) {
     const {items} = selection;
-    // console.log(items);
+    // console.log(items)
     if (!items) {        
-        showAlert();
+        showAlert();        
         return false;        
-    } else {                   
-        // Print out types of all child itemss (if any)
-        // items.forEach(function (item, i) {
-        //     console.log("item:", item);
-        //     // console.log("Child " + i + " is a " + childNode.constructor.name);                       
-        //     // showResult(childNode.constructor.name, i);
-        //     // item.children.forEach(function (child, i){                                                
-        //     //     console.log("child:", child);                                                                               
-        //     //     showResult(child.name);
-        //     // }); 
-            
-        // });
+    } else {                     
         for (let item of items) {
-            console.log("item:", item);    
+            // console.log("item:", item);    
             const itemChildren = item.children.map(x => x);        
+            // console.log("children:", itemChildren);
             for (let child of itemChildren) {                
-                console.log("child:", child);
-                await showResult(child.name);
+                // console.log("child:", child);
+                const children = [];
+                children.push(child.name);                
+                await showResult(children);
             }
         }           
         
