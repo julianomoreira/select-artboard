@@ -19,16 +19,10 @@ async function showResult(el) {
     //         break;
     //     default:   
     //         console.log("sorry nothing selected.")
-    // }
-    console.log(el);
-    el.forEach(function(name){
-        console.log("showResults:", name);
-    })        
-    // await alert("Yaay! You selected something",
-    // `The selected element is ${el}
-    // `);
-    // console.log("alert:", t instanceof Promise);
-    
+    // }    
+    await alert("Yaay! You selected something",
+    `The selected element is ${el}
+    `);    
 }
 
 async function myCommand(selection) {
